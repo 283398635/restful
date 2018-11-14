@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.dao.CarMapper">
+
+   <!-- <insert id="add" parameterType="Register">
+
+        insert into register (sex,hiredate,mStatus,stature,education,address,phone,pwd,name,fileaddress) values(#{sex}," +
+            "#{hiredate},#{mStatus},#{stature},#{education},#{address},#{phone},#{pwd},#{name},#{fileaddress})
+    </insert>
+-->
+   <select id="queryCarList" resultType="com.newer.pojo.Car">
+      select id,name,price,sale_date from car
+         <where>
+            <if test="name!=null and name!=''">
+               and name like concat('%',concat(#{name},'%'))
+            </if>
+            <if test="beginDate!=null and endDate!=null">
+               and sale_date between #{beginDate} and #{endDate}
+            </if>
+         </where>
+   </select>
+</mapper>
